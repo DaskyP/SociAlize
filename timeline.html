@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline - SociAlize</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+        }
+
+        .navbar {
+            background: white;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .container-flex {
+            display: flex;
+            justify-content: space-between;
+            max-width: 100vw;
+            margin: auto;
+            margin-top: 40px;
+        }
+
+        .left-sidebar, .right-sidebar {
+            width: 20%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .timeline-container {
+            width: 55%;
+        }
+        .profile-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .profile-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #007bff;
+            margin-bottom: 10px;
+        }
+
+        .profile-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .profile-username {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .profile-bio {
+            font-size: 0.9rem;
+            color: #555;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .btn-profile {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-profile:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .trending-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            overflow: hidden;
+        }
+        .groups-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.groups-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.group-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, background 0.3s;
+}
+
+.group-item:hover {
+    background-color: #e9f5ff;
+    transform: scale(1.02);
+}
+
+.group-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 15px;
+    object-fit: cover;
+}
+
+.group-info {
+    flex-grow: 1;
+}
+
+.join-btn {
+    width: 100%;
+    font-weight: bold;
+    transition: background 0.3s, color 0.3s;
+}
+
+.join-btn:hover {
+    background: #007bff;
+    color: white;
+}
+
+@media (max-width: 900px) {
+    .group-item {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+    }
+
+    .group-item img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .join-btn {
+        width: 100%;
+    }
+}
+
+        .post-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .post-card img, .post-card video {
+            width: 100%;
+            border-radius: 10px;
+            display: block;
+        }
+
+        .like-container {
+    gap: 8px; 
+    margin-top: 5px;
+    padding: 5px 10px;
+}
+
+
+        .like-btn {
+            cursor: pointer;
+            width: 24px !important;
+            height: 24px;
+        }
+
+        @media (max-width: 1200px) {
+            .container-flex {
+                max-width: 1000px;
+            }
+            .timeline-container {
+                width: 50%;
+            }
+            .left-sidebar, .right-sidebar {
+                width: 23%;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .container-flex {
+                flex-direction: column;
+                align-items: center;
+            }
+            .left-sidebar, .right-sidebar {
+                width: 100%;
+                order: 1;
+            }
+            .timeline-container {
+                width: 100%;
+                order: 2;
+            }
+
+            .groups-list {
+                flex-direction: column;
+            }
+
+            .group-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .join-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">SociAlize</a>
+        </div>
+    </nav>
+
+    <div class="container-flex">
+        <div class="left-sidebar">
+            <div class="groups-card">
+                <h5 class="text-center">🌟 Grupos recomendados</h5>
+                <ul class="groups-list">
+                    <li class="group-item">
+                        <img src="https://picsum.photos/50/50?random=11" alt="Grupo">
+                        <div class="group-info">
+                            <p class="mb-1 fw-bold">Viajeros</p>
+                            <button class="btn btn-sm btn-outline-primary join-btn">Unirse</button>
+                        </div>
+                    </li>
+                    <li class="group-item">
+                        <img src="https://picsum.photos/50/50?random=12" alt="Grupo">
+                        <div class="group-info">
+                            <p class="mb-1 fw-bold">Programadores</p>
+                            <button class="btn btn-sm btn-outline-primary join-btn">Unirse</button>
+                        </div>
+                    </li>
+                    <li class="group-item">
+                        <img src="https://picsum.photos/50/50?random=13" alt="Grupo">
+                        <div class="group-info">
+                            <p class="mb-1 fw-bold">Diseño Creativo</p>
+                            <button class="btn btn-sm btn-outline-primary join-btn">Unirse</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+
+        <div class="timeline-container" id="timeline-container"></div>
+
+        <div class="right-sidebar">
+            <div class="profile-card">
+                <img src="https://picsum.photos/100/100?random=10" alt="Mi perfil" class="profile-img">
+                <h5 class="profile-name">Danna González</h5>
+                <p class="profile-username">@dannagonzalez</p>
+                <p class="profile-bio">🌟 Viviendo la vida al máximo</p>
+                <a href="profile.html" class="btn btn-profile">Ver perfil</a>
+            </div>
+            <div class="trending-card">
+                <h5>Tendencias</h5>
+                <ul>
+                    <li>#SocialMedia</li>
+                    <li>#Tendencias</li>
+                    <li>#SociAlize</li>
+                    <li>#NuevasFotos</li>
+                    <li>#Innovación</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+   <script src="/timeline.js"></script>
+</body>
+</html>
