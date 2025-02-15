@@ -32,10 +32,10 @@ ${post.image ? `<img src="${post.image}" alt="${post.username}">` :
 
         if (isLiked) {
             posts[index].likes--;
-            $(this).attr("src", "starboostrap.svg"); // Estrella vacía
+            $(this).attr("src", "starboostrap.svg"); 
         } else {
             posts[index].likes++;
-            $(this).attr("src", "starfillboostrap.svg"); // Estrella llena
+            $(this).attr("src", "starfillboostrap.svg"); 
         }
 
         $(this).attr("data-liked", !isLiked);
